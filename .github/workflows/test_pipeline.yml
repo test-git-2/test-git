@@ -32,6 +32,12 @@ jobs:
     - name: Active environment
       run: |
         source env/bin/activate
+    - name: Create .cdsapirc file
+      run: |
+        echo "url: https://cds.climate.copernicus.eu/api/v2" > /home/runner/.cdsapirc
+        echo "key: ${{ secrets.CDSAPIRC }}" >> /home/runner/.cdsapirc
+    - name: Display content
+      run: cat /home/runner/.cdsapirc
     - name: Install dependencies
       run: |
         pip install -r ./requirements.txt
