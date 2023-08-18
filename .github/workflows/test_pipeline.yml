@@ -125,11 +125,19 @@ jobs:
     - name: Update version
       run: |
         sed -i "s/version='.*'/version='${{ steps.taggerDryRun.outputs.new_tag }}'/" setup.py
-        git add .
-        git commit -m "Update version to ${{ steps.taggerDryRun.outputs.new_tag }}"
-        git push origin main
       env:
         GITHUB_TOKEN: ${{ secrets.REPORULER_TOKEN }}
+    - name: Authenticate User
+      run: |
+        git config --global user.email "reporuler@gmail.com"
+        git config --global user.name "RepoRu1ler"
+        git add .
+        git commit -m "Update version to ${{ steps.taggerDryRun.outputs.new_tag }}"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.REPORULER_TOKEN }}
+        branch: main
         
 
 
