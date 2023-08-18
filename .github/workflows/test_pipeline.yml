@@ -50,18 +50,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Authenticate User
-        run: |
-          git config --global user.email "reporuler@gmail.com"
-          git config --global user.name "Repo Ruler"
-          git remote set-url origin https://${{github.actor}}:${{secrets.REPORULER_TOKEN}}@github.com/${{github.repository}}.git
+      
       - name: Merge stage -> main
         uses: devmasx/merge-branch@master
         with:
           type: now
           head_to_merge: ${{ github.ref }}
           target_branch: main
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.REPORULER_TOKEN }}
 
 # ------- END MERGE PROCCESS -------- #
 
