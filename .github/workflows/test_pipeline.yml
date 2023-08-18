@@ -121,11 +121,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         ref: main
-    - name: Authenticate User
-      run: |
-        git config --global user.email "reporuler@gmail.com"
-        git config --global user.name "RepoRu1ler"
-        git remote set-url origin https://RepoRu1ler:${{secrets.REPORULER_TOKEN}}@github.com/${{github.repository}}.git
+        token: ${{secrets.REPORULER_TOKEN}}
     - name: Update version
       run: |
         sed -i "s/version='.*'/version='${{ steps.taggerDryRun.outputs.new_tag }}'/" setup.py
