@@ -125,13 +125,9 @@ jobs:
     - name: Update version
       run: |
         sed -i "s/version='.*'/version='${{ steps.taggerDryRun.outputs.new_tag }}'/" setup.py
+        git push origin main
       env:
         GITHUB_TOKEN: ${{ secrets.REPORULER_TOKEN }}
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: "Update version to ${{ steps.taggerDryRun.outputs.new_tag }}"
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPORULER_TOKEN }}
+
 
 # ------- END RELEASE PROCCESS -------- #
